@@ -30,7 +30,7 @@ var (
 	ErrSchemaNoSuppose = errors.New("schema no suppose")
 )
 
-func LoadAndSave(path string, recursion ...bool) (err error) {
+func LoadAndSaveDic(path string, recursion ...bool) (err error) {
 	ss, err := LoadCollectionDic(path, recursion...)
 	if err != nil {
 		return
@@ -54,6 +54,27 @@ func LoadAndSave(path string, recursion ...bool) (err error) {
 
 		file.Close()
 	}
+
+	return nil
+}
+
+func LoadAndSave(filePath string, recursion ...bool) (err error) {
+	col, err := AnalyseRaw(filePath)
+	if err != nil {
+		return
+	}
+
+	file, err := os.Create(`./` + col.Name() + ".md")
+	if err != nil {
+		return err
+	}
+
+	_, err = file.WriteString(col.String())
+	if err != nil {
+		return err
+	}
+
+	file.Close()
 
 	return nil
 }
