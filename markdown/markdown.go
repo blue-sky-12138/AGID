@@ -224,6 +224,9 @@ func (f *FormTable) String() string {
 		resB  strings.Builder
 		lineB strings.Builder
 	)
+
+	// 表格的前一行必须是空格
+	resB.WriteByte('\n')
 	for i, data := range f.data {
 		lineB.Reset()
 
@@ -238,6 +241,8 @@ func (f *FormTable) String() string {
 		s := lineB.String()
 		resB.WriteString(s)
 	}
+	// 表格之后一行必须是空格
+	resB.WriteByte('\n')
 
 	return resB.String()
 }
