@@ -49,7 +49,7 @@ func AGIDCmd() {
 	if file != "" {
 		fmt.Printf("正在处理文件:%s\n", file)
 
-		if err := AGID.LoadAndSave(file, recursion); err != nil {
+		if err := AGID.LoadAndSave(file); err != nil {
 			log.Println(err)
 			return
 		}

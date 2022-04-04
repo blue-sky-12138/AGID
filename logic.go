@@ -58,20 +58,25 @@ func LoadAndSaveDic(path string, recursion ...bool) (err error) {
 	return nil
 }
 
-func LoadAndSave(filePath string, recursion ...bool) (err error) {
-	col, err := AnalyseRaw(filePath)
+func LoadAndSave(filePath string) (err error) {
+	s, err := LoadCollectionFile(filePath)
+	if err != nil {
+		return
+	}
+
+	col, err := AnalyseRaw(s)
 	if err != nil {
 		return
 	}
 
 	file, err := os.Create(`./` + col.Name() + ".md")
 	if err != nil {
-		return err
+		return
 	}
 
 	_, err = file.WriteString(col.String())
 	if err != nil {
-		return err
+		return
 	}
 
 	file.Close()
@@ -339,7 +344,7 @@ func (r *Request) parsePath() string {
 
 	ft := newDefaultFormTable()
 	for _, value := range r.URL.Path {
-		if value[0] == '{' && value[len(value)-1] == '}' {
+		if len(value) > 2 && value[0] == '{' && value[len(value)-1] == '}' {
 			ft.AddLineAndSet(value[1:len(value)-1], "是", "", "")
 			haveParam = true
 		}
