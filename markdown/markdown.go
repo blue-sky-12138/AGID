@@ -119,10 +119,10 @@ const (
 const (
 	structLineString = " | "
 	lineFeedString   = "<br />"
-	defaultString    = "--"
-	leftString       = ":--"
-	middleString     = ":--:"
-	rightString      = "--:"
+	defaultString    = "----"
+	leftString       = ":---"
+	middleString     = ":---:"
+	rightString      = "---:"
 )
 
 type FormTable struct {
